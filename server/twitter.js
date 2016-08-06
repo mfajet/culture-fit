@@ -1,5 +1,8 @@
 var router = require('express').Router();
 
+var twitter = require('./getTweets.js');
+var popTweets = require('./getNotableTweets.js');
+
 router.post('/data', function(req, res) {
 	//console.log(req.body);
 	//res.send({msg: 'test'});
@@ -18,6 +21,9 @@ module.exports = router;
 
 function sendFirstTweets(res) {
 	res.json({test: 'tweets'});
+
+	//popTweets()
+
 }
 
 function sendAnaylsis(res) {
@@ -44,6 +50,12 @@ function sendAnaylsis(res) {
             console.log(`stdout: ${stdout}`);
             console.log(`stderr: ${stderr}`);
             console.log(start-Date.now());
+			fs.readFile('./data.json', function read(err, data) {
+    			if (err) {
+        			throw err;
+   	 			}
+    				res.json(JSON.parse(data));
+				});
           });
 
       });
