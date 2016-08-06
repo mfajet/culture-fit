@@ -33,5 +33,5 @@ var Twitter = require('twitter-node-client').Twitter;
     twitter.getUserTimeline({ screen_name: 'MarkFajita', count: '10'}, error, success);
 
 	module.exports = function(cb) {
-		twitter.getUserTimeline({ screen_name: 'MarkFajita', count: '10'}, error, cb);
+		twitter.getUserTimeline({ screen_name: 'MarkFajita', count: '10'}, error, success);
 	}
