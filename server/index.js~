@@ -37,9 +37,9 @@ app.listen(port, function() {
 });
 
 
-var twitter = require('../getTweets.js');
+var twitter = require('./getTweets.js');
 
-twitter(function (data) {
+/*twitter(function (data) {
       var fs = require('fs');
       fs.writeFile("./test.JSON", data, function(err) {
           if(err) {
@@ -59,4 +59,4 @@ twitter(function (data) {
           });
 
       });
-    });
+    });*/

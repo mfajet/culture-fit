@@ -9,7 +9,7 @@ router.post('/test', function(req, res) {
 		res.status(403);
 
 	switch(status) {
-		case 'empty' : res.json({test: 'tweets'}); req.session.status = 'gotTweets'; break;
+		case 'empty' : res.json({test: 'tweets'}); status = 'gotTweets'; break;
 		case 'gotTweets' : res.json({data: 'anaylsis'}); break;
 		//case 'analysis': res.json({}); break;
 	}

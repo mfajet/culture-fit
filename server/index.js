@@ -35,28 +35,3 @@ var port = 3000;
 app.listen(port, function() {
 	console.log('Listening at port: ' + port);
 });
-
-
-var twitter = require('./getTweets.js');
-
-twitter(function (data) {
-      var fs = require('fs');
-      fs.writeFile("./test.JSON", data, function(err) {
-          if(err) {
-              return console.log(err);
-          }
-
-          console.log("The file was saved!");
-          const exec = require('child_process').exec;
-          exec("R CMD BATCH '--args ./test.JSON' simpleRFile.R", (error, stdout, stderr) => {
-            if (error) {
-              console.error(`exec error: ${error}`);
-              return;
-            }
-            console.log(`stdout: ${stdout}`);
-            console.log(`stderr: ${stderr}`);
-            console.log(start-Date.now());
-          });
-
-      });
-    });
