@@ -5,7 +5,8 @@ var twitter = new Twitter(config);
 var success = function(data){
   var tweets = JSON.parse(data);
   var fivePop=[tweets[0],tweets[1],tweets[2],tweets[3],tweets[4]];
-  tweets.map(function(obj){
+  for(var i=4;i<tweets.length;i++){
+    var obj = tweets[i];
     var nums = obj.favorite_count + obj.retweet_count;
     if(nums>=(tweets[0].favorite_count + tweets[0].retweet_count)){
       tweets[4]=tweets[3];
@@ -28,8 +29,8 @@ var success = function(data){
     }else if(nums>(tweets[4].favorite_count + tweets[4].retweet_count)){
       tweets[4]=obj;
     }
-  });
-  console.log(fivePop.length);
+  };
+  console.log(fivePop);
 };
 var error = function(err, response, body){
   console.log('ERROR [%s]', body);
