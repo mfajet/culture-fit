@@ -37,7 +37,7 @@ app.listen(port, function() {
 });
 
 
-var twitter = require('../getTweets.js');
+var twitter = require('./getTweets.js');
 
 twitter(function (data) {
       var fs = require('fs');
