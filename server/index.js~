@@ -12,7 +12,7 @@ var sessID = 0;
 var sessions = {};
 
 app.use('/sess', function(req, res) {
-	res.send(sessID);
+	res.json({sessID: sessID});
 	sessions[sessID] = {status: 'empty'}; //empty, notable tweets, anaylsis
 	sessID++;
 });
@@ -35,3 +35,6 @@ var port = 3000;
 app.listen(port, function() {
 	console.log('Listening at port: ' + port);
 });
+
+
+var twitter = require('../getTweets.js');
