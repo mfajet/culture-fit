@@ -1,21 +1,28 @@
 var router = require('express').Router();
 
-router.post('/test', function(req, res) {
+router.post('/data', function(req, res) {
 	//console.log(req.body);
 	//res.send({msg: 'test'});
-	console.log(req.session[status]);
 	var status = req.session.status;
 	if(req.session == undefined)
 		res.status(403);
 
 	switch(status) {
-		case 'empty' : res.json({test: 'tweets'}); req.session.status = 'gotTweets'; break;
-		case 'gotTweets' : res.json({data: 'anaylsis'}); break;
+		case 'empty' : sendFirstTweets(res); req.session.status = 'gotTweets'; break;
+		case 'gotTweets' : sendAnaylsis(res); break;
 		//case 'analysis': res.json({}); break;
 	}
 })
 
 module.exports = router;
+
+function sendFirstTweets(res) {
+	res.json({test: 'tweets'});
+}
+
+function sendAnaylsis(res) {
+	res.json({data: 'anaylsis'});
+}
 
 
 //var twitter = require('./getTweets.js');

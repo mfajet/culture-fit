@@ -12,6 +12,7 @@ var sessID = 0;
 var sessions = {};
 
 app.use('/sess', function(req, res) {
+	console.log('res');
 	res.json({sessID: sessID});
 	sessions[sessID] = {status: 'empty'}; //empty, notable tweets, anaylsis
 	sessID++;
