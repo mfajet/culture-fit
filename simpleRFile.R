@@ -1,0 +1,5 @@
+args <- commandArgs(TRUE)
+filename <- ( args[1])
+library(jsonlite)
+tweets <- fromJSON(filename, flatten=TRUE)
+colnames(tweets)
