@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "emotional": "0.0.3",
     "gunning-fog": "^1.0.0",
     "passive-voice": "^0.1.0",
     "sentiment": "^2.0.0",

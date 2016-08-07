@@ -29,8 +29,8 @@ router.post('/brunt', function(req, res) {
 	brunt(req, res);
 });
 
-router.post('/orig', function(req, res) {
-	orig(req, res);
+router.post('/prof', function(req, res) {
+	prof(req, res);
 });
 
 router.post('/cloud', function(req, res) {
@@ -76,7 +76,7 @@ function sendFirstTweets(res, req) {
 }
 
 function cloud(req, res) {
-var screen_name = req.body.screen_name;
+var screen_name = req.body.screen_name || req.query.screen_name;
 twitter(function (data) {
       var fs = require('fs');
       fs.writeFile("./test.JSON", data, function(err) {
@@ -143,24 +143,31 @@ function brunt(req, res) {
 	
 }
 
-function orig(req, res) {
-	/*var screen_name = req.body.screen_name;
+function prof(req, res) {
+	var screen_name = req.body.screen_name;
 	twitter(function(data) {
 	data = JSON.parse(data);
-	var cliches = require('no-cliches');
-	var clicheCount = 0;
-	for(var t in data) {
-		var val = cliches(data[t].text);
-		console.log(data[t].text);
-		console.log(val);		
-		console.log('---');	
-		if(val.length > 0)
-			clicheCount++;
-	}
-	console.log(clicheCount*10/200);
-	var val = clicheCount*10/200;
-	res.json({val: val});
-	}, screen_name);*/
+	var emotional = require("emotional");
+	var count = 0;
+	emotional.load(function() {
+		for(var t in data) {
+			var val = emotional.get(data[t].text);
+			//console.log(val);
+			for(var as in val.assessments) {
+				console.log(val.assessments[as][0][0]);
+				var a = val.assessments[as][0][0];
+				if(a == 'seriously' || a == 'corporate' || a == 'thanks' || a == 'future' || a == 'complete' || a == 'exactly' || a == 'possible') {
+					count++; 
+			} else if(a == 'hate' || a == 'mess') {
+					count-= 2;
+				}
+			}
+		}
+		console.log(count*20/200);
+		var val = count*20/200;
+		res.json({val: val});
+	})
+	}, screen_name);
 }
 
 function sendAnaylsis(res, req) {
