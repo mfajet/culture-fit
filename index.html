@@ -83,7 +83,6 @@
 		
 		.theme-blue{
 			background-color:#4FC3F7;
-			color:#eee;
 		}
 
 		.clickable{
@@ -160,7 +159,7 @@
 				<p class="clickable"><i class="long arrow up icon"></i> start over</p>
 			</div>
 				<div class="candidate-info clearfix">
-					<div class="info-column">
+					<div class="info-column ui card">
 					</div>
 					
 					<div class="tweets-column">
@@ -185,7 +184,7 @@
 
 		function insertValueToInfoColumn(key, value){
 			var $section = $('.candidate-info .info-column');
-			var t = '<p class="info-row">{{text}}</p>';
+			var t = '<div class="content"> <p>{{text}}</p></div>';
 			var html = t.replace("{{text}}", value);
 			
 			$section.append($(html));
@@ -264,8 +263,8 @@
 		
 		$.post("http://104.236.46.78:3000/tw/data", {"" : ""}).then(function(e){
 			var user = e[0].user;
-			$('.info-column').append("<image style='max-width:100px;' src='"+user.profile_image_url+"'/>");
-			insertValueToInfoColumn(null, "@" + user.name)
+			$('.info-column').append("<div class='image'><img src='"+user.profile_image_url+"'/></div>");
+			insertValueToInfoColumn(null, "@" + user.screen_name)
 			insertValueToInfoColumn(null, user.description)
 			insertValueToInfoColumn(null, "member since " + moment(user.created_at).fromNow())
 			
@@ -279,7 +278,7 @@
 								.replace("{{likes}}", tweet.favorite_count)
 								.replace("{{retweet}}", tweet.retweet_count)
 								.replace("{{date}}", moment(tweet.created_at).fromNow());
-
+					
 				$(".tweets").append($(html));
 			}
 
