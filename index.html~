@@ -261,7 +261,7 @@
 		donut.canvas.height = 225;
 		donut.canvas.display = "inline-block";
 		
-		$.post("http://104.236.46.78:3000/tw/data", {"" : ""}).then(function(e){
+		$.post("http://104.236.46.78:3000/tw/data", {"screen_name" : "elonmusk"}).then(function(e){
 			var user = e[0].user;
 			$('.info-column').append("<div class='image'><img src='"+user.profile_image_url+"'/></div>");
 			insertValueToInfoColumn(null, "@" + user.screen_name)
