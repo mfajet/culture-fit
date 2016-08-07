@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Open+Sans|Roboto|Slabo" rel="stylesheet">
+	<style>
+		.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+		body{
+			
+			font-family: 'Slabo', sans-serif;
+		}
+		.wrapper{
+			width: 80%;
+			margin:0 auto;
+		}
+
+		.screen{
+			position: relative;
+			display: flex;
+			height:100%;
+			flex-direction: column;
+			transition:all .5s ease-in-out;
+			bottom:0;
+		}
+
+		.screen > div {
+			flex:1;
+			display: flex;
+			flex-direction: column;
+		}
+
+		img{
+			width:100%;
+		}
+
+		.image-half img{
+			display: block;
+		}
+
+		.hero-half{
+			text-align: center;
+			background-color: #B80C09;
+		}
+
+		.hero-half h1{
+			font-family: 'Josefin Sans', sans-serif;
+			padding: 25px 0;
+			margin:0;
+			font-size:2.6em;
+			color:#fff;
+		}
+
+		.hero-half input{
+			width:350px;
+			height:40px;
+		}
+
+		.hero-half .button{
+			margin-top:15px;
+		}
+
+		.block{
+			display: block;
+		}
+
+		.transition-scroll-up{
+			bottom:1050px;
+		}
+		
+		.theme-blue{
+			background-color:#4FC3F7;
+			color:#eee;
+		}
+
+		.clickable{
+			cursor:pointer;
+		}
+
+		.screen.theme-blue{
+			padding:15px;
+		}
+
+		.candidate-info{
+			padding:30px 0;
+		}
+		.info-column{
+			border:1px solid #fff;
+			padding:30px 15px;
+			width:25%;
+			float:left;
+		}
+
+		.tweets-column{
+			width:72%;
+			float:left;
+			margin-left:3%;
+		}
+		
+		.tweets-column .header{
+			color:#fff;
+			margin-left:2%;
+			margin-bottom:25px;
+			margin-top:0;
+		}
+
+		.tweet{
+			max-width: 31%;
+			margin-left:2%;
+			float:left;
+		}
+
+		.tweet:nth-child(n+5){
+			margin-top:20px;
+		}
+
+		.tweets-column canvas{
+			display:inline-block !important;
+		}
+
+		.tweets-column canvas:nth-child(0){
+			
+		}
+	</style>
+</head>
+<body>
+	<div class="screen">
+		<div class="image-half">
+			<img src="header.png" alt="">
+		</div>
+		<div class="hero-half">
+			<div class="wrapper">
+				<h1>Recruiting Analysis Done Right</h1>
+				<div class="ui left icon input">
+					<input type="text" placeholder="Enter the candidate's twitter handle">
+					<i class="icon at"></i>
+				</div><br/><br/>
+				<button class="block ui button inverted">Retenion</button>
+				<button class=" ui button inverted">Family Value</button>
+				<button class=" ui button inverted">Conversation</button>
+			</div>
+		</div>	
+	</div>
+	<div class="screen theme-blue">
+		<div class="wrapper">
+			<div class="go-back">
+				<p class="clickable"><i class="long arrow up icon"></i> start over</p>
+			</div>
+				<div class="candidate-info clearfix">
+					<div class="info-column">
+					</div>
+					
+					<div class="tweets-column">
+						<h1 class="ui header">Tweet Statistics</h1>
+						<canvas id="donutChart" width="200" height="200"></canvas>
+						<canvas style="margin-left: 69px;" id="lineChart" width="200" height="200"></canvas>
+
+						<h1 style="margin-top:20px;" class="ui header">Most Popular Posts</h1>
+						<div class="tweets">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+	<script>
+
+		function insertValueToInfoColumn(key, value){
+			var $section = $('.candidate-info .info-column');
+			var t = '<p class="info-row">{{text}}</p>';
+			var html = t.replace("{{text}}", value);
+			
+			$section.append($(html));
+		}
+		$('.hero-half .button').click(function(e){
+			$('.screen').eq(0).css('bottom', $(window).height() + "px");
+			$('.screen').eq(1).css('bottom', $(window).height() + "px");
+		});
+
+		$('.go-back p').click(function(e){
+			$('.screen').eq(0).css('bottom', 0 + "px");
+			$('.screen').eq(1).css('bottom', 0 + "px");
+		});
+		
+		var tweet_html = '<div class="tweet"><div class="ui card"><div class="content"><div class="description"><p>{{text}}</p></div></div><div class="extra content"><i class="empty heart icon"></i> {{likes}} &nbsp; <i class="retweet icon"></i> {{retweet}}<div class="right floated meta">{{date}}</div></div></div></div>';
+		var t = '<p class="info-row">{{text}}</p>';
+
+		var chosenMetricVersusOthersChartData = {
+			"labels": ["retension", "family value", "conversation"],
+			"datasets": [{
+				"label": "",
+				"data":[5, 12,3],
+				backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 0.2)'
+				]
+			}]
+		}
+
+		var postsOverTimeData = {
+			"labels": ["Feb", "Mar", "April", "May", "June"],
+			"datasets": [{
+				data: [1,0,2,5,17, 14],
+				fill:true,
+				label:"post type over time",
+				backgroundColor: "rgba(75,192,192,0.4)",
+				borderColor: "rgba(75,192,192,1)",
+				borderCapStyle: 'butt',
+				borderDash: [],
+				borderDashOffset: 0.0,
+				borderJoinStyle: 'miter',
+				pointBorderColor: "rgba(75,192,192,1)",
+				pointBackgroundColor: "#fff",
+				pointBorderWidth: 1,
+				pointHoverRadius: 5,
+				pointHoverBackgroundColor: "rgba(75,192,192,1)",
+				pointHoverBorderColor: "rgba(220,220,220,1)",
+				pointHoverBorderWidth: 2,
+				pointRadius: 1,
+				pointHitRadius: 10,
+				spanGaps:true
+			}] 
+		};
+
+		Chart.defaults.global.maintainAspectRatio = false;
+		Chart.defaults.global.defaultFontColor = "#fff";
+
+		var option = {
+			animation: {
+				duration:1500
+			},
+			responsive:false,
+			maintainAspectRatio: false,
+		};
+
+		var donut = document.getElementById("donutChart").getContext("2d");
+		var line = document.getElementById("lineChart").getContext("2d");
+
+		line.canvas.width = 225;
+		line.canvas.height = 225;
+		line.canvas.display = "inline-block";
+		donut.canvas.width = 225;
+		donut.canvas.height = 225;
+		donut.canvas.display = "inline-block";
+		
+		$.post("http://104.236.46.78:3000/tw/data", {"" : ""}).then(function(e){
+			var user = e[0].user;
+			$('.info-column').append("<image style='max-width:100px;' src='"+user.profile_image_url+"'/>");
+			insertValueToInfoColumn(null, "@" + user.name)
+			insertValueToInfoColumn(null, user.description)
+			insertValueToInfoColumn(null, "member since " + moment(user.created_at).fromNow())
+			
+			var postOverTimeDataPoints = [];
+			var labels = [];
+
+			for(var i = 0; i < e.length; i++){
+				var tweet = e[i];
+				var html = tweet_html
+								.replace("{{text}}", tweet.text)
+								.replace("{{likes}}", tweet.favorite_count)
+								.replace("{{retweet}}", tweet.retweet_count)
+								.replace("{{date}}", moment(tweet.created_at).fromNow());
+
+				$(".tweets").append($(html));
+			}
+
+			var myLineChart = new Chart(line, {
+				type: 'line',
+				data: postsOverTimeData,
+				options: option
+			});
+
+			var myDoughnutChart = new Chart(donut, {
+				type: 'doughnut',
+				data: chosenMetricVersusOthersChartData,
+				options: option
+			});
+		});
+	</script>
+
+</body>
+</html>
