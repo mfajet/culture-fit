@@ -22,7 +22,7 @@ module.exports = router;
 function sendFirstTweets(res) {
 	//res.json({test: 'tweets'});
 
-	popTweets(function(data){
+	popTweets(function(data, req.body.screen_name){
   	var tweets = JSON.parse(data);
  	var fivePop=[tweets[0],tweets[1],tweets[2],tweets[3],tweets[4]];
   	for(var i=5;i<tweets.length;i++){

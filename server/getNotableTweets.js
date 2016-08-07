@@ -38,6 +38,7 @@ var error = function(err, response, body){
 };
 //twitter.getUserTimeline({ screen_name: 'MarkFajita',include_rts:"false", count: '200'}, error, success);
 
-module.exports = function(cb) {
-	twitter.getUserTimeline({ screen_name: 'MarkFajita',include_rts:"false", count: '200'}, error, cb);
+module.exports = function(cb, name) {
+ 	name = typeof name !== 'undefined' ?  name : 'MarkFajita';
+	twitter.getUserTimeline({ screen_name: name,include_rts:"false", count: '200'}, error, cb);
 }

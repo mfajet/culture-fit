@@ -20,7 +20,7 @@ router.post('/data', function(req, res) {
 module.exports = router;
 
 function sendFirstTweets(res) {
-	res.json({test: 'tweets'});
+	//res.json({test: 'tweets'});
 
 	popTweets(function(data){
   	var tweets = JSON.parse(data);
