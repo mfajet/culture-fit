@@ -11,7 +11,7 @@ router.post('/data', function(req, res) {
 		res.status(403);
 
 	switch(status) {
-		case 'empty' : sendFirstTweets(res); req.session.status = 'gotTweets'; break;
+		case 'empty' : sendFirstTweets(res, req); req.session.status = 'gotTweets'; break;
 		case 'gotTweets' : sendAnaylsis(res); break;
 		//case 'analysis': res.json({}); break;
 	}
@@ -19,10 +19,10 @@ router.post('/data', function(req, res) {
 
 module.exports = router;
 
-function sendFirstTweets(res) {
+function sendFirstTweets(res, req) {
 	//res.json({test: 'tweets'});
-
-	popTweets(function(data){
+	var screen_name = req.body.screen_name;
+	popTweets(function(data, req.body){
   	var tweets = JSON.parse(data);
  	var fivePop=[tweets[0],tweets[1],tweets[2],tweets[3],tweets[4]];
   	for(var i=5;i<tweets.length;i++){
