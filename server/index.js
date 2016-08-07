@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 var sessID = 0;
-var sessions = {};
+var sessions = {{0: {status: 'empty'} }};
 
 app.use(function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,7 +27,7 @@ app.use('/tw', function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	if(req.body.sessID != undefined && req.body != undefined) {
 		console.log('Got sessID');
-		req.session = sessions[req.body.sessID]
+		req.session = sessions[0]
 		next();
 	} else {
 		console.log('No sessID given. Blocked.');
