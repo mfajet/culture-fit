@@ -67,6 +67,12 @@ write.csv(TopFive, fileName = "topFiveFriends")
 
 
 ## found a thing online to walk through formating the text
+
+
+#***************************************************************8
+#FROM HERE
+
+library(tm)
 myCorpus <- Corpus(VectorSource(MARKDF$text))
 myCorpus <- tm_map(myCorpus, content_transformer(tolower))
 removeURL <- function(x) gsub("http[^[:space:]]*", "", x)
@@ -93,41 +99,34 @@ stemCompletion2 <- function(x, dictionary) {
   
 }
 
-myCorpus
 
 myCorpus <- lapply(myCorpus, stemCompletion2, dictionary=myCorpusCopy)
-
 myCorpus <- Corpus(VectorSource(myCorpus))
 
-writeLines(strwrap(myCorpus[[190]]$content, 60))
-
 tdm <- TermDocumentMatrix(myCorpus,control = list(wordLengths = c(3, Inf)))
-str(tdm)
 freq.terms <- findFreqTerms(tdm, lowfreq = .05*tdm$ncol)
-freq.terms
 term.freq <- rowSums(as.matrix(tdm))
-term.freq
-
 df <- data.frame(term = names(term.freq), freq = term.freq)
-
-stemDocument
 m <- as.matrix(tdm)
 
 # calculate the frequency of words and sort it by frequency
 
 word.freq <- sort(rowSums(m), decreasing = T)
-word.freq
 # colors
 install.packages("wordcloud")
 library("wordcloud")
 
-wordcloud(words = names(word.freq), freq = word.freq, min.freq = 3,
-          
+cloud <- wordcloud(words = names(word.freq), freq = word.freq, min.freq = 3,
           random.order = F, random.color = T, col = c("red", "royalblue1", " dark green", "grey28"))
-?wordcloud()
+write(cloud, stdout())
 
+#TO HERE
 
-#****
+###########################################
+#
+#Creates Topics based off of analysing the tweets
+#graph stuff doesn't work
+#
 install.packages("topicmodels")
 library(topicmodels)
 
@@ -136,8 +135,9 @@ dtm
 rowTotals <- apply(dtm , 1, sum) #Find the sum of words in each Document
 dtm.new   <- dtm[rowTotals> 0, ]    
 lda <- LDA(dtm.new, k = 5)
-term <- terms(lda, 5)
+term <- terms(lda, 10)
 term <- apply(term, MARGIN = 2, paste, collapse = ", ")
+View(term)
 
 topics <- topics(lda) 
 topics <- data.frame(date = as.list.Date(MARKDF$created_at), topic=topics)
