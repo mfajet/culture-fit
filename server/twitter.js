@@ -9,12 +9,12 @@ router.post('/data', function(req, res) {
 	var status = req.session.status;
 	if(req.session == undefined)
 		res.status(403);
-
-	switch(status) {
+	sendFirstTweets(res, req);
+	/*switch(status) {
 		case 'empty' : sendFirstTweets(res, req); req.session.status = 'gotTweets'; break;
 		case 'gotTweets' : sendAnaylsis(res); break;
 		//case 'analysis': res.json({}); break;
-	}
+	}*/
 })
 
 module.exports = router;
