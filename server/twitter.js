@@ -33,7 +33,7 @@ router.post('/orig', function(req, res) {
 	orig(req, res);
 });
 
-router.post('/cloud', function(req, res) {
+router.get('/cloud', function(req, res) {
 	cloud(req, res);
 })
 
