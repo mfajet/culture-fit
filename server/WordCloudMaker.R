@@ -1,7 +1,7 @@
 #***************************************************************8
 #FROM HERE
-#HAS TO HAVE THE MARKDF from before. 
-libraru(jsonlite)
+#HAS TO HAVE THE MARKDF from before.
+library(jsonlite)
 library(wordcloud)
 library(tm)
 MARKDF <-fromJSON("test.JSON", flatten = TRUE)
@@ -23,13 +23,13 @@ myCorpus <- tm_map(myCorpus, stripWhitespace)
 stemCompletion2 <- function(x, dictionary) {
   x <- unlist(strsplit(as.character(x), " "))
   x <- x[x != ""]
-  
+
   x <- stemCompletion(x, dictionary=dictionary)
-  
+
   x <- paste(x, sep="", collapse=" ")
-  
+
   PlainTextDocument(stripWhitespace(x))
-  
+
 }
 
 

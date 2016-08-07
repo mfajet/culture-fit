@@ -15,6 +15,7 @@ var Twitter = require('twitter-node-client').Twitter;
 
           console.log("The file was saved!");
           const exec = require('child_process').exec;
+          const exec2 = require('child_process').exec;
 
           exec("Rscript TopFiveFriends.R ./test.JSON", (error, stdout, stderr) => {
             if (error) {
@@ -37,7 +38,14 @@ var Twitter = require('twitter-node-client').Twitter;
             console.log('stderr: '+ stderr);
             console.log(fiveNames);
           })
-
+          exec2("Rscript WordCloudMaker.R ./test.JSON", (error, stdout, stderr) => {
+            if (error) {
+              console.error(`exec error: ${error}`);
+              return;
+            }
+            console.log('stdout: ' + stdout );
+            console.log('stderr: '+ stderr);
+          })
       }
     )};
     var config = require('../config.js');
