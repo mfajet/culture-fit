@@ -25,14 +25,14 @@ app.use('/sess', function(req, res) {
 
 app.use('/tw', function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	if(req.body.sessID != undefined && req.body != undefined) {
-		console.log('Got sessID');
+	//if(req.body.sessID != undefined && req.body != undefined) {
+		//console.log('Got sessID');
 		req.session = sessions[0]
 		next();
-	} else {
+	/*} else {
 		console.log('No sessID given. Blocked.');
 		res.status(403).send('Need a session id');	
-	}
+	}*/
 });
 
 app.use('/tw', require('./twitter'));
