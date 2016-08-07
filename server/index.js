@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 var sessID = 0;
-var sessions = {{0: {status: 'empty'} }};
+var sessions = { 0: {status: 'empty'} };
 
 app.use(function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
