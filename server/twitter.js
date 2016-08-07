@@ -33,6 +33,10 @@ router.post('/orig', function(req, res) {
 	orig(req, res);
 });
 
+router.post('/cloud', function(req, res) {
+	cloud(req, res);
+})
+
 module.exports = router;
 
 function sendFirstTweets(res, req) {
@@ -69,6 +73,31 @@ function sendFirstTweets(res, req) {
   console.log(fivePop);
 	res.json(fivePop);
 }, screen_name);
+}
+
+function cloud(req, res) {
+var screen_name = req.body.screen_name;
+twitter(function (data) {
+      var fs = require('fs');
+      fs.writeFile("./test.JSON", data, function(err) {
+          if(err) {
+              return console.log(err);
+          }
+
+          console.log("The file was saved!");
+          const exec2 = require('child_process').exec;
+
+          exec2("R CMD BATCH '--args ./test.JSON' WordCloudMaker.R", (error, stdout, stderr) => {
+            if (error) {
+              console.error(`exec error: ${error}`);
+              return;
+            }
+			res.sendFile('./cloud.png')
+            console.log('stdout: ' + stdout );
+            console.log('stderr: '+ stderr);
+          })
+      }
+    )});
 }
 
 function sentiment(req, res) {
