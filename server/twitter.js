@@ -58,7 +58,7 @@ function sendFirstTweets(res, req) {
 
 function sendAnaylsis(res, req) {
 	//res.json({data: 'anaylsis'});
-	var screen_name = req.body.screen_name;	
+	var screen_name = req.body.screen_name;
 	twitter(function (data) {
       var fs = require('fs');
       fs.writeFile("./test.JSON", data, function(err) {
@@ -106,7 +106,7 @@ var counter =0;
       counter++;
       if(counter>=5){
         //console.log("KERLIN SEND IT");
-		res.json(fiveUsers);
+				res.json(fiveUsers);
       }
     }
 }
