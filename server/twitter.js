@@ -48,26 +48,26 @@ function sendFirstTweets(res, req) {
   	for(var i=5;i<tweets.length;i++){
 		var obj = tweets[i];
 		var nums = obj.favorite_count + obj.retweet_count;
-		if(nums>(tweets[0].favorite_count + tweets[0].retweet_count)){
-	  		fivePop[4]=tweets[3];
-	  		fivePop[3]=tweets[2];
-	  		fivePop[2]=tweets[1];
-	  		fivePop[1]=tweets[0];
-	  	fivePop[0]=obj;
+		if(nums>=(tweets[0].favorite_count + tweets[0].retweet_count)){
+	  		tweets[4]=tweets[3];
+	  		tweets[3]=tweets[2];
+	  		tweets[2]=tweets[1];
+	  		tweets[1]=tweets[0];
+	  	tweets[0]=obj;
 		}else if(nums>(tweets[1].favorite_count + tweets[1].retweet_count)){
-	  		fivePop[4]=tweets[3];
-	  		fivePop[3]=tweets[2];
-	  		fivePop[2]=tweets[1];
-	  		fivePop[1]=obj;
+	  		tweets[4]=tweets[3];
+	  		tweets[3]=tweets[2];
+	  		tweets[2]=tweets[1];
+	  		tweets[1]=obj;
 		}else if(nums>(tweets[2].favorite_count + tweets[2].retweet_count)){
-	  		fivePop[4]=tweets[3];
-	  		fivePop[3]=tweets[2];
-	  		fivePop[2]=obj;
+	  		tweets[4]=tweets[3];
+	  		tweets[3]=tweets[2];
+	  		tweets[2]=obj;
 		}else if(nums>(tweets[3].favorite_count + tweets[3].retweet_count)){
-	  		fivePop[4]=tweets[3];
-	  		fivePop[3]=obj;
+	  		tweets[4]=tweets[3];
+	  		tweets[3]=obj;
 		}else if(nums>(tweets[4].favorite_count + tweets[4].retweet_count)){
-	  		fivePop[4]=obj;
+	  		tweets[4]=obj;
 	}
   };
   console.log(fivePop);
