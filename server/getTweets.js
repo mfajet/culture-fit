@@ -23,6 +23,14 @@ var Twitter = require('twitter-node-client').Twitter;
             }
             console.log('stdout: ' + stdout );
             var fiveNames = stdout.split('\n');
+            fiveNames.pop();
+
+            var i = fiveNames.indexOf(username);
+            if(i>=0){
+              fiveNames.splice(i,1);
+            }else {
+              fiveNames.pop();
+            }
             console.log('stderr: '+ stderr);
             console.log(fiveNames);
           });
@@ -33,9 +41,11 @@ var Twitter = require('twitter-node-client').Twitter;
 
     var twitter = new Twitter(config);
 
+    var username = 'MarkFajita';
+
     var start=Date.now();
-    twitter.getUserTimeline({ screen_name: 'MarkFajita', count: '200'}, error, success);
+    twitter.getUserTimeline({ screen_name: username, count: '200'}, error, success);
 
 	module.exports = function(cb) {
-		twitter.getUserTimeline({ screen_name: 'MarkFajita', count: '200'}, error, cb);
+		twitter.getUserTimeline({ screen_name: username, count: '200'}, error, cb);
 	}
