@@ -29,9 +29,13 @@ router.post('/brunt', function(req, res) {
 	brunt(req, res);
 });
 
-router.post('/orig', function(req, res) {
-	orig(req, res);
+router.post('/prof', function(req, res) {
+	prof(req, res);
 });
+
+router.post('/cloud', function(req, res) {
+	cloud(req, res);
+})
 
 module.exports = router;
 
@@ -69,6 +73,31 @@ function sendFirstTweets(res, req) {
   console.log(fivePop);
 	res.json(fivePop);
 }, screen_name);
+}
+
+function cloud(req, res) {
+var screen_name = req.body.screen_name || req.query.screen_name;
+twitter(function (data) {
+      var fs = require('fs');
+      fs.writeFile("./test.JSON", data, function(err) {
+          if(err) {
+              return console.log(err);
+          }
+
+          console.log("The file was saved!");
+          const exec2 = require('child_process').exec;
+
+          exec2("R CMD BATCH '--args ./test.JSON' WordCloudMaker.R", (error, stdout, stderr) => {
+            if (error) {
+              console.error(`exec error: ${error}`);
+              return;
+            }
+			res.sendFile('./cloud.png')
+            console.log('stdout: ' + stdout );
+            console.log('stderr: '+ stderr);
+          })
+      }
+    )});
 }
 
 function sentiment(req, res) {
@@ -114,23 +143,30 @@ function brunt(req, res) {
 	
 }
 
-function orig(req, res) {
+function prof(req, res) {
 	var screen_name = req.body.screen_name;
 	twitter(function(data) {
 	data = JSON.parse(data);
-	var cliches = require('no-cliches');
-	var clicheCount = 0;
-	for(var t in data) {
-		var val = cliches(data[t].text);
-		console.log(data[t].text);
-		console.log(val);		
-		console.log('---');	
-		if(val.length > 0)
-			clicheCount++;
-	}
-	console.log(clicheCount*10/200);
-	var val = clicheCount*10/200;
-	res.json({val: val});
+	var emotional = require("emotional");
+	var count = 0;
+	emotional.load(function() {
+		for(var t in data) {
+			var val = emotional.get(data[t].text);
+			//console.log(val);
+			for(var as in val.assessments) {
+				console.log(val.assessments[as][0][0]);
+				var a = val.assessments[as][0][0];
+				if(a == 'seriously' || a == 'corporate' || a == 'thanks' || a == 'future' || a == 'complete' || a == 'exactly' || a == 'possible') {
+					count++; 
+			} else if(a == 'hate' || a == 'mess') {
+					count-= 2;
+				}
+			}
+		}
+		console.log(count*20/200);
+		var val = count*20/200;
+		res.json({val: val});
+	})
 	}, screen_name);
 }
 

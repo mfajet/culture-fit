@@ -71,6 +71,7 @@ write.csv(TopFive, fileName = "topFiveFriends")
 
 #***************************************************************8
 #FROM HERE
+#HAS TO HAVE THE MARKDF from before. 
 
 library(tm)
 myCorpus <- Corpus(VectorSource(MARKDF$text))

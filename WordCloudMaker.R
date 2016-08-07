@@ -1,11 +1,11 @@
-
-require(methods)
+#***************************************************************8
+#FROM HERE
+#HAS TO HAVE THE MARKDF from before. 
+install.packages("tm")
 library(jsonlite)
 library(wordcloud)
 library(tm)
-args <- commandArgs(TRUE)
-filename <- ( args[1])
-MARKDF <-fromJSON(filename, flatten = TRUE)
+MARKDF <-fromJSON("test.JSON", flatten = TRUE)
 
 myCorpus <- Corpus(VectorSource(MARKDF$text))
 myCorpus <- tm_map(myCorpus, content_transformer(tolower))
@@ -24,13 +24,13 @@ myCorpus <- tm_map(myCorpus, stripWhitespace)
 stemCompletion2 <- function(x, dictionary) {
   x <- unlist(strsplit(as.character(x), " "))
   x <- x[x != ""]
-
+  
   x <- stemCompletion(x, dictionary=dictionary)
-
+  
   x <- paste(x, sep="", collapse=" ")
-
+  
   PlainTextDocument(stripWhitespace(x))
-
+  
 }
 
 myCorpusCopy <- myCorpus
@@ -49,13 +49,11 @@ word.freq <- sort(rowSums(m), decreasing = T)
 # colors
 
 
-png(filename="./cloud.png")
 
 cloud <- wordcloud(words = names(word.freq), freq = word.freq, min.freq = 3,
                    random.order = F, random.color = T, col = c("red", "royalblue1", " dark green", "grey28"))
-# write(cloud, stdout())
+write(cloud, stdout())
 
 #TO HERE
 
-dev.off()
 ###########################################
