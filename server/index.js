@@ -11,6 +11,11 @@ app.use(bodyParser.json());
 var sessID = 0;
 var sessions = {};
 
+app.use(function(req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	next();
+});
+
 app.use('/sess', function(req, res) {
 	console.log('res');
 	res.json({sessID: sessID});
@@ -19,7 +24,7 @@ app.use('/sess', function(req, res) {
 });
 
 app.use('/tw', function(req, res, next) {
-	if(req.body.sessID) {
+	if(req.body.sessID != undefined && req.body != undefined) {
 		console.log('Got sessID');
 		req.session = sessions[req.body.sessID]
 		next();
