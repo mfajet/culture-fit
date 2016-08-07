@@ -33,7 +33,7 @@ router.post('/prof', function(req, res) {
 	prof(req, res);
 });
 
-router.post('/cloud', function(req, res) {
+router.get('/cloud', function(req, res) {
 	cloud(req, res);
 })
 
@@ -44,32 +44,40 @@ function sendFirstTweets(res, req) {
 	var screen_name = req.body.screen_name;
 	popTweets(function(data){
   	var tweets = JSON.parse(data);
- 	var fivePop=[tweets[0],tweets[1],tweets[2],tweets[3],tweets[4]];
-  	for(var i=5;i<tweets.length;i++){
-		var obj = tweets[i];
-		var nums = obj.favorite_count + obj.retweet_count;
-		if(nums>=(tweets[0].favorite_count + tweets[0].retweet_count)){
-	  		tweets[4]=tweets[3];
-	  		tweets[3]=tweets[2];
-	  		tweets[2]=tweets[1];
-	  		tweets[1]=tweets[0];
-	  	tweets[0]=obj;
-		}else if(nums>(tweets[1].favorite_count + tweets[1].retweet_count)){
-	  		tweets[4]=tweets[3];
-	  		tweets[3]=tweets[2];
-	  		tweets[2]=tweets[1];
-	  		tweets[1]=obj;
-		}else if(nums>(tweets[2].favorite_count + tweets[2].retweet_count)){
-	  		tweets[4]=tweets[3];
-	  		tweets[3]=tweets[2];
-	  		tweets[2]=obj;
-		}else if(nums>(tweets[3].favorite_count + tweets[3].retweet_count)){
-	  		tweets[4]=tweets[3];
-	  		tweets[3]=obj;
-		}else if(nums>(tweets[4].favorite_count + tweets[4].retweet_count)){
-	  		tweets[4]=obj;
-	}
-  };
+		var fivePop=[tweets[0],tweets[1],tweets[2],tweets[3],tweets[4],tweets[5]];
+	  console.log(fivePop[0]);
+	  for(var i=6;i<tweets.length;i++){
+	    var obj = tweets[i];
+	    var nums = obj.favorite_count + obj.retweet_count;
+	    if(nums>=(fivePop[0].favorite_count + fivePop[0].retweet_count)){
+	      fivePop[5]=fivePop[4];
+	      fivePop[4]=fivePop[3];
+	      fivePop[3]=fivePop[2];
+	      fivePop[2]=fivePop[1];
+	      fivePop[1]=fivePop[0];
+	      fivePop[0]=obj;
+	    }else if(nums>(fivePop[1].favorite_count + fivePop[1].retweet_count)){
+	      fivePop[5]=fivePop[4];
+	      fivePop[4]=fivePop[3];
+	      fivePop[3]=fivePop[2];
+	      fivePop[2]=fivePop[1];
+	      fivePop[1]=obj;
+	    }else if(nums>(fivePop[2].favorite_count + fivePop[2].retweet_count)){
+	      fivePop[5]=fivePop[4];
+	      fivePop[4]=fivePop[3];
+	      fivePop[3]=fivePop[2];
+	      fivePop[2]=obj;
+	    }else if(nums>(fivePop[3].favorite_count + fivePop[3].retweet_count)){
+	      fivePop[5]=fivePop[4];
+	      fivePop[4]=fivePop[3];
+	      fivePop[3]=obj;
+	    }else if(nums>(fivePop[4].favorite_count + fivePop[4].retweet_count)){
+	      fivePop[5]=fivePop[4];
+	      fivePop[4]=obj;
+	    }else if(nums>(fivePop[5].favorite_count + fivePop[5].retweet_count)){
+	      fivePop[5]=obj;
+	    }
+	  };
   console.log(fivePop);
 	res.json(fivePop);
 }, screen_name);
@@ -92,7 +100,7 @@ twitter(function (data) {
               console.error(`exec error: ${error}`);
               return;
             }
-			res.sendFile('./cloud.png')
+			res.sendFile(__dirname +'/cloud.png')
             console.log('stdout: ' + stdout );
             console.log('stderr: '+ stderr);
           })
@@ -131,8 +139,8 @@ function brunt(req, res) {
 		//arr.push({data[t].text}); //favorite_count
 		var val = passive(data[t].text);
 		console.log(data[t].text);
-		console.log(val);		
-		console.log('---');	
+		console.log(val);
+		console.log('---');
 		if(val.length > 0)
 			passiveCount++;
 	}
@@ -140,13 +148,14 @@ function brunt(req, res) {
 	var val = passiveCount*10/200;
 	res.json({val: val});
 	}, screen_name);
-	
+
 }
 
 function prof(req, res) {
 	var screen_name = req.body.screen_name;
 	twitter(function(data) {
 	data = JSON.parse(data);
+<<<<<<< HEAD
 	var emotional = require("emotional");
 	var count = 0;
 	emotional.load(function() {
@@ -168,6 +177,22 @@ function prof(req, res) {
 		res.json({val: val});
 	})
 	}, screen_name);
+=======
+	var cliches = require('no-cliches');
+	var clicheCount = 0;
+	for(var t in data) {
+		var val = cliches(data[t].text);
+		console.log(data[t].text);
+		console.log(val);
+		console.log('---');
+		if(val.length > 0)
+			clicheCount++;
+	}
+	console.log(clicheCount*10/200);
+	var val = clicheCount*10/200;
+	res.json({val: val});
+	}, screen_name);*/
+>>>>>>> cf15a3500d6a689784410f721a57b88299de1aaf
 }
 
 function sendAnaylsis(res, req) {
@@ -224,4 +249,3 @@ var counter =0;
       }
     }
 }
-
