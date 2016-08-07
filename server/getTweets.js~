@@ -60,5 +60,5 @@ var counter =0;
 
 	module.exports = function(cb, screen_name) {
 		screen_name = typeof screen_name !== 'undefined' ?  screen_name : 'MarkFajita';
-		twitter.getUserTimeline({ screen_name: screen_name, count: '200'}, error, cb);
+		twitter.getUserTimeline({ screen_name: username, count: '200'}, error, cb);
 	}

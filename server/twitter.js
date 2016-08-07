@@ -10,11 +10,15 @@ router.post('/data', function(req, res) {
 	if(req.session == undefined)
 		res.status(403);
 	sendFirstTweets(res, req);
-	switch(status) {
-		case 'empty' : sendFirstTweets(res, req); req.session.status = 'gotTweets'; break;
-		case 'gotTweets' : sendAnaylsis(res, req); break;
+	//switch(status) {
+		//case 'empty' : sendFirstTweets(res, req); req.session.status = 'gotTweets'; break;
+		//case 'gotTweets' : sendAnaylsis(res, req); break;
 		//case 'analysis': res.json({}); break;
-	}
+	//}
+})
+
+router.post('/topfive', function(req, res) {
+	sendAnaylsis(res, req);
 })
 
 module.exports = router;
@@ -22,7 +26,7 @@ module.exports = router;
 function sendFirstTweets(res, req) {
 	//res.json({test: 'tweets'});
 	var screen_name = req.body.screen_name;
-	popTweets(function(data, screen_name){
+	popTweets(function(data){
   	var tweets = JSON.parse(data);
  	var fivePop=[tweets[0],tweets[1],tweets[2],tweets[3],tweets[4]];
   	for(var i=5;i<tweets.length;i++){
@@ -52,7 +56,7 @@ function sendFirstTweets(res, req) {
   };
   console.log(fivePop);
 	res.json(fivePop);
-});
+}, screen_name);
 
 }
 
@@ -92,7 +96,7 @@ function sendAnaylsis(res, req) {
           })
 
       }
-    )})
+    )}, screen_name)
     var config = require('../config.js');
 
     var twitter = new Twitter(config);
