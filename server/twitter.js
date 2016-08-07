@@ -30,7 +30,7 @@ router.post('/brunt', function(req, res) {
 });
 
 router.post('/orig', function(req, res) {
-
+	orig(req, res);
 });
 
 module.exports = router;
@@ -88,13 +88,12 @@ function sentiment(req, res) {
 		}
 		console.log('avg: ' + (total/count));
 		var avg = total/count;
-		res.json({avg: avg});
+		res.json({val: avg});
 	}, screen_name);
 }
 
 function brunt(req, res) {
 	var screen_name = req.body.screen_name;
-	var kmeans = require('node-kmeans');
 	twitter(function(data) {
 	data = JSON.parse(data);
 	var passive = require('passive-voice');
@@ -108,9 +107,31 @@ function brunt(req, res) {
 		if(val.length > 0)
 			passiveCount++;
 	}
-	console.log(passiveCount*10/200);
+	console.log(passiveCount*30/200);
+	var val = passiveCount*30/200;
+	res.json({val: val});
 	}, screen_name);
 	
+}
+
+function orig(req, res) {
+	var screen_name = req.body.screen_name;
+	twitter(function(data) {
+	data = JSON.parse(data);
+	var cliches = require('no-cliches');
+	var clicheCount = 0;
+	for(var t in data) {
+		var val = cliches(data[t].text);
+		console.log(data[t].text);
+		console.log(val);		
+		console.log('---');	
+		if(val.length > 0)
+			clicheCount++;
+	}
+	console.log(clicheCount*10/200);
+	var val = clicheCount*10/200;
+	res.json({val: val});
+	}, screen_name);
 }
 
 function sendAnaylsis(res, req) {
