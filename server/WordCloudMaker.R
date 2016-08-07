@@ -1,7 +1,8 @@
 #***************************************************************8
 #FROM HERE
 #HAS TO HAVE THE MARKDF from before. 
-libraru(jsonlite)
+install.packages("tm")
+library(jsonlite)
 library(wordcloud)
 library(tm)
 MARKDF <-fromJSON("test.JSON", flatten = TRUE)
@@ -32,7 +33,7 @@ stemCompletion2 <- function(x, dictionary) {
   
 }
 
-
+myCorpusCopy <- myCorpus
 myCorpus <- lapply(myCorpus, stemCompletion2, dictionary=myCorpusCopy)
 myCorpus <- Corpus(VectorSource(myCorpus))
 
