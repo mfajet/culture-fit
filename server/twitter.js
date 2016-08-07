@@ -10,11 +10,11 @@ router.post('/data', function(req, res) {
 	if(req.session == undefined)
 		res.status(403);
 	sendFirstTweets(res, req);
-	/*switch(status) {
+	switch(status) {
 		case 'empty' : sendFirstTweets(res, req); req.session.status = 'gotTweets'; break;
-		case 'gotTweets' : sendAnaylsis(res); break;
+		case 'gotTweets' : sendAnaylsis(res, req); break;
 		//case 'analysis': res.json({}); break;
-	}*/
+	}
 })
 
 module.exports = router;
@@ -51,13 +51,64 @@ function sendFirstTweets(res, req) {
 	}
   };
   console.log(fivePop);
-	res.json(fivePop)
+	res.json(fivePop);
 });
 
 }
 
-function sendAnaylsis(res) {
-	res.json({data: 'anaylsis'});
+function sendAnaylsis(res, req) {
+	//res.json({data: 'anaylsis'});
+	var screen_name = req.body.screen_name;	
+	twitter(function (data) {
+      var fs = require('fs');
+      fs.writeFile("./test.JSON", data, function(err) {
+          if(err) {
+              return console.log(err);
+          }
+
+          console.log("The file was saved!");
+          const exec = require('child_process').exec;
+
+          exec("Rscript TopFiveFriends.R ./test.JSON", (error, stdout, stderr) => {
+            if (error) {
+              console.error(`exec error: ${error}`);
+              return;
+            }
+            console.log('stdout: ' + stdout );
+            var fiveNames = stdout.split('\n');
+            fiveNames.pop();
+
+            var i = fiveNames.indexOf(username);
+            if(i>=0){
+              fiveNames.splice(i,1);
+            }else {
+              fiveNames.pop();
+            }
+            fiveNames.map(function(str){
+                twitter.getUser({screen_name: str}, error, namesSuccess);
+              });
+            console.log('stderr: '+ stderr);
+            console.log(fiveNames);
+          })
+
+      }
+    )};
+    var config = require('../config.js');
+
+    var twitter = new Twitter(config);
+
+    var username = 'MarkFajita';
+    var fiveUsers = [];
+
+var counter =0;
+    var namesSuccess = function(data){
+      fiveUsers.push(data);
+      counter++;
+      if(counter>=5){
+        //console.log("KERLIN SEND IT");
+		res.json(fiveUsers);
+      }
+    });
 }
 
 
