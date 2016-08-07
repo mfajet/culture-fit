@@ -21,7 +21,7 @@ router.post('/topfive', function(req, res) {
 	sendAnaylsis(res, req);
 });
 
-router.post('/pos'. function(req, res) {
+router.post('/pos', function(req, res) {
 	sentiment(req, res);
 });
 
@@ -67,8 +67,10 @@ function sentiment(req, res) {
 	var screen_name = req.body.screen_name;
 	twitter(function(data) {
 		for(var t in data) {
+			console.log(t);
 			console.log('sentiment time: ' + t.text);
 		}
+		return;
 	});
 }
 
