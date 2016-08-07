@@ -6,6 +6,67 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Open+Sans|Roboto|Slabo" rel="stylesheet">
 	<style>
+		.sk-cube-grid {
+  width: 40px;
+  height: 40px;
+  margin: 100px auto;
+}
+
+.sk-cube-grid .sk-cube {
+  width: 33%;
+  height: 33%;
+  background-color: #eee;
+  float: left;
+  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+          animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+}
+.sk-cube-grid .sk-cube1 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube2 {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube3 {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s; }
+.sk-cube-grid .sk-cube4 {
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube5 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube6 {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube7 {
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s; }
+.sk-cube-grid .sk-cube8 {
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube9 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+
+@-webkit-keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+  } 35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1); 
+  }
+}
+
+@keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+  } 35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1);
+  } 
+}
 		.clearfix:after {
      visibility: hidden;
      display: block;
@@ -20,7 +81,6 @@
 .clearfix { display: block; }
 /* close commented backslash hack */
 		body{
-			
 			font-family: 'Slabo', sans-serif;
 		}
 		.wrapper{
@@ -53,20 +113,19 @@
 
 		.hero-half{
 			text-align: center;
-			background-color: #B80C09;
 		}
 
 		.hero-half h1{
 			font-family: 'Josefin Sans', sans-serif;
 			padding: 25px 0;
 			margin:0;
-			font-size:2.6em;
+			font-size:3.5em;
 			color:#fff;
 		}
 
 		.hero-half input{
-			width:350px;
-			height:40px;
+			width:360px;
+			height:50px;
 		}
 
 		.hero-half .button{
@@ -82,19 +141,29 @@
 		}
 		
 		.theme-blue{
-			background-color:#4FC3F7;
+			background-color:#fff;
+			color:#777;
 		}
+
+		.ui.statistic>.value, .ui.statistics .statistic>.value{
+			color:#0A4C61;
+		}
+
+		 .ui.statistic>.label, .ui.statistics .statistic>.label{
+			 color:#777;
+		 }
 
 		.clickable{
 			cursor:pointer;
 		}
 
 		.screen.theme-blue{
-			padding:15px;
+			padding1E88E515px;
 		}
 
 		.candidate-info{
 			padding:30px 0;
+			color:#777;
 		}
 		.info-column{
 			border:1px solid #fff;
@@ -110,7 +179,7 @@
 		}
 		
 		.tweets-column .header{
-			color:#fff;
+			color:#777;
 			margin-left:2%;
 			margin-bottom:25px;
 			margin-top:0;
@@ -120,9 +189,17 @@
 			max-width: 31%;
 			margin-left:2%;
 			float:left;
+			
 		}
 
-		.tweet:nth-child(n+5){
+		.ui.card{
+			min-height:150px;
+		}
+
+		.ui.card>.content>.description, .ui.cards>.card>.content>.description{
+			color:#777;
+		}
+		.tweet:nth-child(n+4){
 			margin-top:20px;
 		}
 
@@ -130,26 +207,99 @@
 			display:inline-block !important;
 		}
 
-		.tweets-column canvas:nth-child(0){
-			
+		.logo{
+			position:fixed;
+			right:16.4%;
+			top:20px;
+			z-index:2;
+		}
+
+		.logo img{
+			width:300px;
+		}
+
+		.overlay-container{
+			position: relative;
+			background: url('header.png') no-repeat center fixed;
+			background-size:cover;
+			padding-top:275px;
+		}
+		.overlay-overlay{
+			position:absolute;
+			width:100%;
+			height:100%;
+			left:0;
+			top:0;
+			background-color:#1c5588;
+			opacity:.55;
+		}
+		.overlay-content{
+			position: relative;
+			z-index:3;
+		}
+
+		.tweetCloud{
+			width:300px;
+			display: block;
+			text-align: center;
+			margin:0 auto;
+		}
+
+		.loading{
+			opacity:0;
+			display:flex;
+			align-items: center;
+  			justify-content: center;
+			background-color:#0A4C61;
+			position: fixed;
+			left:0;
+			top:0;
+			height:100%;
+			width:100%;
+			z-index:-1;
+			transition:all .8s ease-in-out;
+		}
+
+		.loading.show{
+			opacity:1;
+			z-index:5;
+		}
+
+		.loading .center{
+			margin:0 auto;
 		}
 	</style>
 </head>
 <body>
-	<div class="screen">
-		<div class="image-half">
-			<img src="header.png" alt="">
+	<div class="loading">
+		<div class="sk-cube-grid center">
+			<h1>Loading tweets!</h1>
+			<div class="sk-cube sk-cube1"></div>
+			<div class="sk-cube sk-cube2"></div>
+			<div class="sk-cube sk-cube3"></div>
+			<div class="sk-cube sk-cube4"></div>
+			<div class="sk-cube sk-cube5"></div>
+			<div class="sk-cube sk-cube6"></div>
+			<div class="sk-cube sk-cube7"></div>
+			<div class="sk-cube sk-cube8"></div>
+			<div class="sk-cube sk-cube9"></div>
 		</div>
-		<div class="hero-half">
-			<div class="wrapper">
-				<h1>Recruiting Analysis Done Right</h1>
-				<div class="ui left icon input">
-					<input type="text" placeholder="Enter the candidate's twitter handle">
-					<i class="icon at"></i>
-				</div><br/><br/>
-				<button class="block ui button inverted">Retenion</button>
-				<button class=" ui button inverted">Family Value</button>
-				<button class=" ui button inverted">Conversation</button>
+	</div>
+	<div class="logo"><img src="logo.png" alt=""></div>
+	<div class="screen">
+		<div class="overlay-container">
+			<div class="overlay-overlay"></div>
+			<div class="overlay-content">
+				<div class="hero-half">
+					<div class="wrapper">
+						<h1>Recruiting Analysis Done Right</h1>
+						<div class="ui left icon input">
+							<input type="text" placeholder="Enter the candidate's twitter handle">
+							<i class="icon at"></i>
+						</div><br/><br/>
+						<button class="block ui button inverted">Analyze</button>
+					</div>
+				</div>
 			</div>
 		</div>	
 	</div>
@@ -164,13 +314,16 @@
 					
 					<div class="tweets-column">
 						<h1 class="ui header">Tweet Statistics</h1>
-						<canvas id="donutChart" width="200" height="200"></canvas>
-						<canvas style="margin-left: 69px;" id="lineChart" width="200" height="200"></canvas>
+						<div style="margin-left:0; color:#fff;" class="ui statistics">
+							
+						</div>
+						<!--<canvas id="donutChart" width="200" height="200"></canvas>
+						<canvas style="margin-left: 69px;" id="lineChart" width="200" height="200"></canvas>-->
 
 						<h1 style="margin-top:20px;" class="ui header">Most Popular Posts</h1>
-						<div class="tweets">
+						<div class="tweets"></div>
+						
 
-						</div>
 					</div>
 				</div>
 			</div>
@@ -181,7 +334,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
 	<script>
-
+		var handle = "CultureFitTweet";
 		function insertValueToInfoColumn(key, value){
 			var $section = $('.candidate-info .info-column');
 			var t = '<div class="content"> <p>{{text}}</p></div>';
@@ -189,15 +342,57 @@
 			
 			$section.append($(html));
 		}
+
 		$('.hero-half .button').click(function(e){
 			$('.screen').eq(0).css('bottom', $(window).height() + "px");
 			$('.screen').eq(1).css('bottom', $(window).height() + "px");
+
+			$('.loading').addClass("show")
+			handle  = $('input').val();
+			$.post("http://104.236.46.78:3000/tw/data", {"screen_name" : handle}, null, "json").then(function(e){
+			var user = e[0].user;
+			$('.info-column').append("<div class='image'><img src='"+user.profile_image_url.replace('_normal', '')+"'/></div>");
+			insertValueToInfoColumn(null, "@" + user.screen_name)
+			insertValueToInfoColumn(null, user.description)
+			insertValueToInfoColumn(null, "member since " + moment(user.created_at).fromNow())
+			
+			var postOverTimeDataPoints = [];
+			var labels = [];
+
+			for(var i = 0; i < e.length; i++){
+				if(i === (e.length / 2)){
+					$('.tweets').append($('<img class="tweetCloud"  alt="">'));
+					$(".tweetCloud").attr('src', "http://10.20.1.72:3000/tw/cloud/" + handle);
+					$('.tweetCloud').on('load', function() {
+						$('.loading').removeClass("show");
+					});
+				}
+				var tweet = e[i];
+				var html = tweet_html
+								.replace("{{text}}", tweet.text)
+								.replace("{{likes}}", tweet.favorite_count)
+								.replace("{{retweet}}", tweet.retweet_count)
+								.replace("{{date}}", moment(tweet.created_at).fromNow());
+					
+				$(".tweets").append($(html));
+			}
+			});
+
+			$.post("http://104.236.46.78:3000/tw/pos", {"screen_name" : handle}).then(function(e){
+				$('.tweets-column .statistics').append($("<div class='statistic'><div class='value'>"+ Math.floor(e.val * 100) +"%</div><div class='label'> Positivity rating</div></div>"));
+			})
+
+			$.post("http://104.236.46.78:3000/tw/brunt", {"screen_name" : handle}).then(function(e){
+				$('.tweets-column .statistics').append($("<div class='statistic'><div class='value'>"+ (100 - Math.floor(e.val * 100)) +"%</div><div class='label'> Bruntness rating</div></div>"));
+			});
 		});
 
 		$('.go-back p').click(function(e){
 			$('.screen').eq(0).css('bottom', 0 + "px");
 			$('.screen').eq(1).css('bottom', 0 + "px");
 		});
+
+		
 		
 		var tweet_html = '<div class="tweet"><div class="ui card"><div class="content"><div class="description"><p>{{text}}</p></div></div><div class="extra content"><i class="empty heart icon"></i> {{likes}} &nbsp; <i class="retweet icon"></i> {{retweet}}<div class="right floated meta">{{date}}</div></div></div></div>';
 		var t = '<p class="info-row">{{text}}</p>';
@@ -251,49 +446,27 @@
 			maintainAspectRatio: false,
 		};
 
-		var donut = document.getElementById("donutChart").getContext("2d");
-		var line = document.getElementById("lineChart").getContext("2d");
+		// var donut = document.getElementById("donutChart").getContext("2d");
+		// var line = document.getElementById("lineChart").getContext("2d");
 
-		line.canvas.width = 225;
-		line.canvas.height = 225;
-		line.canvas.display = "inline-block";
-		donut.canvas.width = 225;
-		donut.canvas.height = 225;
-		donut.canvas.display = "inline-block";
-		
-		$.post("http://104.236.46.78:3000/tw/data", {"" : ""}).then(function(e){
-			var user = e[0].user;
-			$('.info-column').append("<div class='image'><img src='"+user.profile_image_url+"'/></div>");
-			insertValueToInfoColumn(null, "@" + user.screen_name)
-			insertValueToInfoColumn(null, user.description)
-			insertValueToInfoColumn(null, "member since " + moment(user.created_at).fromNow())
-			
-			var postOverTimeDataPoints = [];
-			var labels = [];
+		// line.canvas.width = 225;
+		// line.canvas.height = 225;
+		// line.canvas.display = "inline-block";
+		// donut.canvas.width = 225;
+		// donut.canvas.height = 225;
+		// donut.canvas.display = "inline-block";
 
-			for(var i = 0; i < e.length; i++){
-				var tweet = e[i];
-				var html = tweet_html
-								.replace("{{text}}", tweet.text)
-								.replace("{{likes}}", tweet.favorite_count)
-								.replace("{{retweet}}", tweet.retweet_count)
-								.replace("{{date}}", moment(tweet.created_at).fromNow());
-					
-				$(".tweets").append($(html));
-			}
+			// var myLineChart = new Chart(line, {
+			// 	type: 'line',
+			// 	data: postsOverTimeData,
+			// 	options: option
+			// });
 
-			var myLineChart = new Chart(line, {
-				type: 'line',
-				data: postsOverTimeData,
-				options: option
-			});
-
-			var myDoughnutChart = new Chart(donut, {
-				type: 'doughnut',
-				data: chosenMetricVersusOthersChartData,
-				options: option
-			});
-		});
+			// var myDoughnutChart = new Chart(donut, {
+			// 	type: 'doughnut',
+			// 	data: chosenMetricVersusOthersChartData,
+			// 	options: option
+			// });
 	</script>
 
 </body>
