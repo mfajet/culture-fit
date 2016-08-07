@@ -25,6 +25,10 @@ router.post('/pos', function(req, res) {
 	sentiment(req, res);
 });
 
+router.post('/brunt', function(req, res) {
+	brunt(req, res);
+});
+
 module.exports = router;
 
 function sendFirstTweets(res, req) {
@@ -64,15 +68,45 @@ function sendFirstTweets(res, req) {
 }
 
 function sentiment(req, res) {
+	var sent = require('sentiment')
 	var screen_name = req.body.screen_name;
 	twitter(function(data) {
+		console.log(typeof data);
+		data = JSON.parse(data);
+		var total = 0;
+		var count = 0;
 		for(var t in data) {
-			console.log(t);
-			console.log('sentiment time: ' + t.text);
-			console.log(t['text']);
+			var val = sent(data[t].text)
+			//console.log('sentiment time: ' + data[t].text);
+			console.log(val);
+			total += val.score;
+			count++;
 		}
-		return;
-	});
+		console.log('avg: ' + (total/count));
+		var avg = total/count;
+		res.json({avg: avg});
+	}, screen_name);
+}
+
+function brunt(req, res) {
+	var screen_name = req.body.screen_name;
+	var kmeans = require('node-kmeans');
+	twitter(function(data) {
+	data = JSON.parse(data);
+	var passive = require('passive-voice');
+	var passiveCount = 0;
+	for(var t in data) {
+		//arr.push({data[t].text}); //favorite_count
+		var val = passive(data[t].text);
+		console.log(data[t].text);
+		console.log(val);		
+		console.log('---');	
+		if(val.length > 0)
+			passiveCount++;
+	}
+	console.log(passiveCount*10/200);
+	}, screen_name);
+	
 }
 
 function sendAnaylsis(res, req) {
