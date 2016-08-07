@@ -21,7 +21,7 @@ router.post('/topfive', function(req, res) {
 	sendAnaylsis(res, req);
 });
 
-router.post('/pos'. function(req, res) {
+router.post('/pos', function(req, res) {
 	sentiment(req, res);
 });
 
