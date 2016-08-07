@@ -38,7 +38,7 @@ var Twitter = require('twitter-node-client').Twitter;
             console.log('stderr: '+ stderr);
             console.log(fiveNames);
           })
-          exec2("Rscript WordCloudMaker.R ./test.JSON", (error, stdout, stderr) => {
+          exec2("R CMD BATCH '--args ./test.JSON' WordCloudMaker.R", (error, stdout, stderr) => {
             if (error) {
               console.error(`exec error: ${error}`);
               return;

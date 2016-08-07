@@ -3,3 +3,6 @@ config.js
 simpleRFile.Rout
 test.JSON
 .RData
+Rplots.pdf
+WordCloudMaker.Rout
+cloud.png

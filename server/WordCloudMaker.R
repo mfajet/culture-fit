@@ -1,6 +1,5 @@
-#***************************************************************8
-#FROM HERE
-#HAS TO HAVE THE MARKDF from before.
+
+require(methods)
 library(jsonlite)
 library(wordcloud)
 library(tm)
@@ -32,7 +31,7 @@ stemCompletion2 <- function(x, dictionary) {
 
 }
 
-
+myCorpusCopy <- myCorpus
 myCorpus <- lapply(myCorpus, stemCompletion2, dictionary=myCorpusCopy)
 myCorpus <- Corpus(VectorSource(myCorpus))
 
@@ -48,11 +47,13 @@ word.freq <- sort(rowSums(m), decreasing = T)
 # colors
 
 
+png(filename="./cloud.png")
 
 cloud <- wordcloud(words = names(word.freq), freq = word.freq, min.freq = 3,
                    random.order = F, random.color = T, col = c("red", "royalblue1", " dark green", "grey28"))
-write(cloud, stdout())
+# write(cloud, stdout())
 
 #TO HERE
 
+dev.off()
 ###########################################
