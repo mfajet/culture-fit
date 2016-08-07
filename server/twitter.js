@@ -92,7 +92,7 @@ twitter(function (data) {
               console.error(`exec error: ${error}`);
               return;
             }
-			res.sendFile('./cloud.png')
+			res.sendFile(__dirname +'/cloud.png')
             console.log('stdout: ' + stdout );
             console.log('stderr: '+ stderr);
           })
@@ -131,8 +131,8 @@ function brunt(req, res) {
 		//arr.push({data[t].text}); //favorite_count
 		var val = passive(data[t].text);
 		console.log(data[t].text);
-		console.log(val);		
-		console.log('---');	
+		console.log(val);
+		console.log('---');
 		if(val.length > 0)
 			passiveCount++;
 	}
@@ -140,7 +140,7 @@ function brunt(req, res) {
 	var val = passiveCount*10/200;
 	res.json({val: val});
 	}, screen_name);
-	
+
 }
 
 function orig(req, res) {
@@ -152,8 +152,8 @@ function orig(req, res) {
 	for(var t in data) {
 		var val = cliches(data[t].text);
 		console.log(data[t].text);
-		console.log(val);		
-		console.log('---');	
+		console.log(val);
+		console.log('---');
 		if(val.length > 0)
 			clicheCount++;
 	}
@@ -217,4 +217,3 @@ var counter =0;
       }
     }
 }
-
