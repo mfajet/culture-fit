@@ -24,6 +24,7 @@ app.use('/sess', function(req, res) {
 });
 
 app.use('/tw', function(req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	if(req.body.sessID != undefined && req.body != undefined) {
 		console.log('Got sessID');
 		req.session = sessions[req.body.sessID]
