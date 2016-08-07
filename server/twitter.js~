@@ -69,6 +69,7 @@ function sentiment(req, res) {
 		for(var t in data) {
 			console.log(t);
 			console.log('sentiment time: ' + t.text);
+			console.log(t['text']);
 		}
 		return;
 	});

@@ -67,9 +67,9 @@ function sentiment(req, res) {
 	var screen_name = req.body.screen_name;
 	twitter(function(data) {
 		for(var t in data) {
-			console.log(t);
-			console.log('sentiment time: ' + t.text);
-			console.log(t['text']);
+			console.log(data.t);
+			console.log('sentiment time: ' + data.t.text);
+			console.log(data.t['text']);
 		}
 		return;
 	});
