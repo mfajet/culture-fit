@@ -92,7 +92,7 @@ function sendAnaylsis(res, req) {
           })
 
       }
-    )};
+    )})
     var config = require('../config.js');
 
     var twitter = new Twitter(config);
@@ -108,7 +108,7 @@ var counter =0;
         //console.log("KERLIN SEND IT");
 		res.json(fiveUsers);
       }
-    });
+    }
 }
 
 
