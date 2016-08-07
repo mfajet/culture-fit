@@ -31,18 +31,30 @@ var Twitter = require('twitter-node-client').Twitter;
             }else {
               fiveNames.pop();
             }
+            fiveNames.map(function(str){
+                twitter.getUser({screen_name: str}, error, namesSuccess);
+              });
             console.log('stderr: '+ stderr);
             console.log(fiveNames);
-          });
+          })
 
-      });
-    };
+      }
+    )};
     var config = require('../config.js');
 
     var twitter = new Twitter(config);
 
     var username = 'MarkFajita';
+    var fiveUsers = [];
 
+var counter =0;
+    var namesSuccess = function(data){
+      fiveUsers.push(data);
+      counter++;
+      if(counter>=5){
+        console.log("KERLIN SEND IT");
+      }
+    }
     var start=Date.now();
     twitter.getUserTimeline({ screen_name: username, count: '200'}, error, success);
 
