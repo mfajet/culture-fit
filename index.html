@@ -341,6 +341,7 @@
 </script>
 	<script>
 		var handle = "CultureFitTweet";
+		var ip = require('./ip.js').ip;
 		function insertValueToInfoColumn(key, value){
 			var $section = $('.candidate-info .info-column');
 			var t = '<div class="content"> <p>{{text}}</p></div>';
@@ -355,7 +356,7 @@
 
 			$('.loading').addClass("show")
 			handle  = $('input').val();
-			$.post("http://104.236.46.78:3000/tw/data", {"screen_name" : handle}, null, "json").then(function(e){
+			$.post("http://"+ip+"/tw/data", {"screen_name" : handle}, null, "json").then(function(e){
 			var user = e[0].user;
 			$('.info-column').append("<div class='image'><img src='"+user.profile_image_url.replace('_normal', '')+"'/></div>");
 			insertValueToInfoColumn(null, "@" + user.screen_name)
@@ -368,7 +369,7 @@
 			for(var i = 0; i < e.length; i++){
 				if(i === (e.length / 2)){
 					$('.tweets').append($('<img class="tweetCloud"  alt="">'));
-					$(".tweetCloud").attr('src', "http://104.236.46.78:3000/tw/cloud/" + handle);
+					$(".tweetCloud").attr('src', "http://"+ip+"/tw/cloud/" + handle);
 					$('.tweetCloud').on('load', function() {
 						$('.loading').removeClass("show");
 					});
@@ -384,15 +385,15 @@
 			}
 			});
 
-			$.post("http://104.236.46.78:3000/tw/pos", {"screen_name" : handle}).then(function(e){
+			$.post("http://"+ip+"/tw/pos", {"screen_name" : handle}).then(function(e){
 				$('.tweets-column .statistics').append($("<div class='statistic'><div class='value'>"+ Math.floor(e.val * 100) +"%</div><div class='label'> Positivity rating</div></div>"));
 			})
 
-			$.post("http://104.236.46.78:3000/tw/brunt", {"screen_name" : handle}).then(function(e){
+			$.post("http://"+ip+"/tw/brunt", {"screen_name" : handle}).then(function(e){
 				$('.tweets-column .statistics').append($("<div class='statistic'><div class='value'>"+ (100 - Math.floor(e.val * 100)) +"%</div><div class='label'> Bruntness rating</div></div>"));
 			});
 
-			$.post("http://104.236.46.78:3000/tw/prof", {"screen_name" : handle}).then(function(e){
+			$.post("http://"+ip+"/tw/prof", {"screen_name" : handle}).then(function(e){
 				$('.tweets-column .statistics').append($("<div class='statistic'><div class='value'>"+ (Math.floor(e.val * 100)) +"%</div><div class='label'> Bruntness rating</div></div>"));
 			});
 		});
