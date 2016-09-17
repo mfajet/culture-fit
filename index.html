@@ -18,7 +18,7 @@
   background-color: #eee;
   float: left;
   -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-          animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+          animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
 }
 .sk-cube-grid .sk-cube1 {
   -webkit-animation-delay: 0.2s;
@@ -54,7 +54,7 @@
             transform: scale3D(1, 1, 1);
   } 35% {
     -webkit-transform: scale3D(0, 0, 1);
-            transform: scale3D(0, 0, 1); 
+            transform: scale3D(0, 0, 1);
   }
 }
 
@@ -65,7 +65,7 @@
   } 35% {
     -webkit-transform: scale3D(0, 0, 1);
             transform: scale3D(0, 0, 1);
-  } 
+  }
 }
 		.clearfix:after {
      visibility: hidden;
@@ -139,7 +139,7 @@
 		.transition-scroll-up{
 			bottom:1050px;
 		}
-		
+
 		.theme-blue{
 			background-color:#fff;
 			color:#777;
@@ -177,7 +177,7 @@
 			float:left;
 			margin-left:3%;
 		}
-		
+
 		.tweets-column .header{
 			color:#777;
 			margin-left:2%;
@@ -189,7 +189,7 @@
 			max-width: 31%;
 			margin-left:2%;
 			float:left;
-			
+
 		}
 
 		.ui.card{
@@ -300,7 +300,7 @@
 					</div>
 				</div>
 			</div>
-		</div>	
+		</div>
 	</div>
 	<div class="screen theme-blue">
 		<div class="wrapper">
@@ -310,35 +310,42 @@
 				<div class="candidate-info clearfix">
 					<div class="info-column ui card">
 					</div>
-					
+
 					<div class="tweets-column">
 						<h1 class="ui header">Tweet Statistics</h1>
 						<div style="margin-left:0; color:#fff;" class="ui statistics">
-							
+
 						</div>
 						<!--<canvas id="donutChart" width="200" height="200"></canvas>
 						<canvas style="margin-left: 69px;" id="lineChart" width="200" height="200"></canvas>-->
 
 						<h1 style="margin-top:20px;" class="ui header">Most Popular Posts</h1>
 						<div class="tweets"></div>
-						
+
 
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
 
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+	<script>
+    try {
+        $ = jQuery = module.exports;
+        // If you want module.exports to be empty, uncomment:
+        // module.exports = {};
+    } catch(e) {}
+</script>
 	<script>
 		var handle = "CultureFitTweet";
 		function insertValueToInfoColumn(key, value){
 			var $section = $('.candidate-info .info-column');
 			var t = '<div class="content"> <p>{{text}}</p></div>';
 			var html = t.replace("{{text}}", value);
-			
+
 			$section.append($(html));
 		}
 
@@ -354,14 +361,14 @@
 			insertValueToInfoColumn(null, "@" + user.screen_name)
 			insertValueToInfoColumn(null, user.description)
 			insertValueToInfoColumn(null, "member since " + moment(user.created_at).fromNow())
-			
+
 			var postOverTimeDataPoints = [];
 			var labels = [];
 
 			for(var i = 0; i < e.length; i++){
 				if(i === (e.length / 2)){
 					$('.tweets').append($('<img class="tweetCloud"  alt="">'));
-					$(".tweetCloud").attr('src', "http://10.20.1.72:3000/tw/cloud/" + handle);
+					$(".tweetCloud").attr('src', "http://104.236.46.78:3000/tw/cloud/" + handle);
 					$('.tweetCloud').on('load', function() {
 						$('.loading').removeClass("show");
 					});
@@ -372,7 +379,7 @@
 								.replace("{{likes}}", tweet.favorite_count)
 								.replace("{{retweet}}", tweet.retweet_count)
 								.replace("{{date}}", moment(tweet.created_at).fromNow());
-					
+
 				$(".tweets").append($(html));
 			}
 			});
@@ -395,8 +402,8 @@
 			$('.screen').eq(1).css('bottom', 0 + "px");
 		});
 
-		
-		
+
+
 		var tweet_html = '<div class="tweet"><div class="ui card"><div class="content"><div class="description"><p>{{text}}</p></div></div><div class="extra content"><i class="empty heart icon"></i> {{likes}} &nbsp; <i class="retweet icon"></i> {{retweet}}<div class="right floated meta">{{date}}</div></div></div></div>';
 		var t = '<p class="info-row">{{text}}</p>';
 
@@ -435,7 +442,7 @@
 				pointRadius: 1,
 				pointHitRadius: 10,
 				spanGaps:true
-			}] 
+			}]
 		};
 
 		Chart.defaults.global.maintainAspectRatio = false;
