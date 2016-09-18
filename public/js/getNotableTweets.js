@@ -1,18 +1,17 @@
 
-var getTopSix = function(tweets, userName){
+var getTopSix = function(tweets){
 
   var sixPop=[];//=[tweets[0],tweets[1],tweets[2],tweets[3],tweets[4],tweets[5]];
   //console.log(sixPop[0]);
   for(var i=0;i<tweets.length;i++){
-    if(tweets[i].screen_name===userName){
+    if(!tweets[i].retweeted_status){
       if(sixPop.length<6){
         sixPop.push(tweets[i]);
-      }else if(sixPop.length==6){
         sixPop.sort(function(a,b){
           if((a.favorite_count + a.retweet_count) > (b.favorite_count + b.retweet_count)){
-            return 1;
-          }else if((a.favorite_count + a.retweet_count) < (b.favorite_count + b.retweet_count)){
             return -1;
+          }else if((a.favorite_count + a.retweet_count) < (b.favorite_count + b.retweet_count)){
+            return 1;
           }else {
             return 0;
           }

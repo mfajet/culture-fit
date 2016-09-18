@@ -51,7 +51,7 @@ class AppContainer extends React.Component {
     var tweetsSuccess = function(data){
       var tweets = JSON.parse(data);
       _this.setState({'tweets': tweets});
-      console.log(getNotable(tweets,_this.state.autoCompleteValue));
+      console.log(getNotable(tweets));
     }
 
     twitter.getUserTimeline({ screen_name: this.state.autoCompleteValue, count: '200'}, tweetsError, tweetsSuccess);
