@@ -4,6 +4,7 @@ import Search from '../components/search.component'
 import Logo from '../components/logo.component'
 import Loading from '../components/loading.component'
 import SixTweets from '../components/sixTweets.component'
+import UserCard from '../components/userCard.component'
 var Twitter = require('twitter-node-client').Twitter;
 var config = require('../../config.js');
 var getNotable = require('../../public/js/getNotableTweets.js');
@@ -15,6 +16,7 @@ class AppContainer extends React.Component {
     this.state = {
       name:{},
       autoCompleteValue: '',
+      user:{},
       names:[],
       tweets:[]
     }
@@ -52,8 +54,9 @@ class AppContainer extends React.Component {
 
     var tweetsSuccess = function(data){
       var tweets = JSON.parse(data);
-      _this.setState({'tweets': tweets});
+      _this.setState({'tweets': tweets, user: tweets[0].user});
           ReactDOM.render(<SixTweets tweets={getNotable(tweets)}/>, document.getElementById('placeForTweets'));
+          ReactDOM.render(<UserCard user={_this.state.user}/>, document.getElementById('placeForUser'));
 
     }
 
@@ -74,6 +77,7 @@ class AppContainer extends React.Component {
             handleChange={this.handleChange.bind(this)}
             placeholder="Twitter handle"
             onSubmit ={this.getTweets.bind(this)}/>
+            <div id='placeForUser'></div>
             <div id='placeForTweets'>
             </div>
           </div>
