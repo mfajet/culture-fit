@@ -48,7 +48,7 @@ class Search extends React.Component {
 
     return(
       <div className="wrapper">
-        <h3>{this.props.header}</h3>
+        <h1>{this.props.header}</h1>
         <div className="ui left icon input">
           <AutoComplete placeholder={this.props.placeholder} ref = "autocomplete"
             inputProps = {{title:"title"}}

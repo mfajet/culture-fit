@@ -4,7 +4,7 @@ import Logo from '../components/logo.component'
 import Loading from '../components/loading.component'
 var Twitter = require('twitter-node-client').Twitter;
 var config = require('../../config.js');
-
+var getNotable = require('../../public/js/getNotableTweets.js');
 var twitter = new Twitter(config);
 // Search component created as a class
 class AppContainer extends React.Component {
@@ -13,7 +13,8 @@ class AppContainer extends React.Component {
     this.state = {
       name:{},
       autoCompleteValue: '',
-      names:[]
+      names:[],
+      tweets:[]
     }
   }
   handleSelect(value, item){
@@ -42,7 +43,18 @@ class AppContainer extends React.Component {
     }
   }
   getTweets(){
-    console.log(this.state.autoCompleteValue);
+    var _this = this;
+    var tweetsError = function(){
+      console.log("No tweets Found");
+    }
+
+    var tweetsSuccess = function(data){
+      var tweets = JSON.parse(data);
+      _this.setState({'tweets': tweets});
+      console.log(getNotable(tweets,_this.state.autoCompleteValue));
+    }
+
+    twitter.getUserTimeline({ screen_name: this.state.autoCompleteValue, count: '200'}, tweetsError, tweetsSuccess);
   }
     // render method is most important
     // render method returns JSX template
