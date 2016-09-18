@@ -155,7 +155,6 @@ function prof(req, res) {
 	var screen_name = req.body.screen_name;
 	twitter(function(data) {
 	data = JSON.parse(data);
-<<<<<<< HEAD
 	var emotional = require("emotional");
 	var count = 0;
 	emotional.load(function() {
@@ -166,7 +165,7 @@ function prof(req, res) {
 				console.log(val.assessments[as][0][0]);
 				var a = val.assessments[as][0][0];
 				if(a == 'seriously' || a == 'corporate' || a == 'thanks' || a == 'future' || a == 'complete' || a == 'exactly' || a == 'possible') {
-					count++; 
+					count++;
 			} else if(a == 'hate' || a == 'mess') {
 					count-= 2;
 				}
@@ -177,22 +176,6 @@ function prof(req, res) {
 		res.json({val: val});
 	})
 	}, screen_name);
-=======
-	var cliches = require('no-cliches');
-	var clicheCount = 0;
-	for(var t in data) {
-		var val = cliches(data[t].text);
-		console.log(data[t].text);
-		console.log(val);
-		console.log('---');
-		if(val.length > 0)
-			clicheCount++;
-	}
-	console.log(clicheCount*10/200);
-	var val = clicheCount*10/200;
-	res.json({val: val});
-	}, screen_name);*/
->>>>>>> cf15a3500d6a689784410f721a57b88299de1aaf
 }
 
 function sendAnaylsis(res, req) {

@@ -5,9 +5,11 @@ import Logo from '../components/logo.component'
 import Loading from '../components/loading.component'
 import SixTweets from '../components/sixTweets.component'
 import UserCard from '../components/userCard.component'
+import Statistic from '../components/statistic.component'
 var Twitter = require('twitter-node-client').Twitter;
 var config = require('../../config.js');
 var getNotable = require('../../public/js/getNotableTweets.js');
+var analysis = require('../../public/js/analysis');
 var twitter = new Twitter(config);
 // Search component created as a class
 class AppContainer extends React.Component {
@@ -54,9 +56,17 @@ class AppContainer extends React.Component {
 
     var tweetsSuccess = function(data){
       var tweets = JSON.parse(data);
+      var bruntness = analysis.brunt(tweets);
+      var professionalism = analysis.prof(tweets);
+      var positivity = analysis.sentiment(tweets);
       _this.setState({'tweets': tweets, user: tweets[0].user});
           ReactDOM.render(<SixTweets tweets={getNotable(tweets)}/>, document.getElementById('placeForTweets'));
           ReactDOM.render(<UserCard user={_this.state.user}/>, document.getElementById('placeForUser'));
+          ReactDOM.render((<div>
+                              <Statistic val={positivity} label="Positivity" />
+                              <Statistic val={professionalism} label="Professionalism" />
+                              <Statistic val={bruntness} label="Bruntness" />
+                          </div>), document.getElementById('statistics'));
 
     }
 
@@ -80,6 +90,7 @@ class AppContainer extends React.Component {
             <div id='placeForUser'></div>
             <div id='placeForTweets'>
             </div>
+            <div className='ui statistics' id='statistics'></div>
           </div>
         );
     }
