@@ -1,7 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Search from '../components/search.component'
 import Logo from '../components/logo.component'
 import Loading from '../components/loading.component'
+import SixTweets from '../components/sixTweets.component'
 var Twitter = require('twitter-node-client').Twitter;
 var config = require('../../config.js');
 var getNotable = require('../../public/js/getNotableTweets.js');
@@ -51,7 +53,8 @@ class AppContainer extends React.Component {
     var tweetsSuccess = function(data){
       var tweets = JSON.parse(data);
       _this.setState({'tweets': tweets});
-      console.log(getNotable(tweets));
+          ReactDOM.render(<SixTweets tweets={getNotable(tweets)}/>, document.getElementById('placeForTweets'));
+
     }
 
     twitter.getUserTimeline({ screen_name: this.state.autoCompleteValue, count: '200'}, tweetsError, tweetsSuccess);
@@ -71,6 +74,8 @@ class AppContainer extends React.Component {
             handleChange={this.handleChange.bind(this)}
             placeholder="Twitter handle"
             onSubmit ={this.getTweets.bind(this)}/>
+            <div id='placeForTweets'>
+            </div>
           </div>
         );
     }
