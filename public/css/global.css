@@ -1,0 +1,263 @@
+
+  .sk-cube-grid {
+width: 40px;
+height: 40px;
+margin: 100px auto;
+}
+
+.sk-cube-grid .sk-cube {
+width: 33%;
+height: 33%;
+background-color: #eee;
+float: left;
+-webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+        animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+}
+.sk-cube-grid .sk-cube1 {
+-webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube2 {
+-webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube3 {
+-webkit-animation-delay: 0.4s;
+        animation-delay: 0.4s; }
+.sk-cube-grid .sk-cube4 {
+-webkit-animation-delay: 0.1s;
+        animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube5 {
+-webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube6 {
+-webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube7 {
+-webkit-animation-delay: 0s;
+        animation-delay: 0s; }
+.sk-cube-grid .sk-cube8 {
+-webkit-animation-delay: 0.1s;
+        animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube9 {
+-webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s; }
+
+@-webkit-keyframes sk-cubeGridScaleDelay {
+0%, 70%, 100% {
+  -webkit-transform: scale3D(1, 1, 1);
+          transform: scale3D(1, 1, 1);
+} 35% {
+  -webkit-transform: scale3D(0, 0, 1);
+          transform: scale3D(0, 0, 1);
+}
+}
+
+@keyframes sk-cubeGridScaleDelay {
+0%, 70%, 100% {
+  -webkit-transform: scale3D(1, 1, 1);
+          transform: scale3D(1, 1, 1);
+} 35% {
+  -webkit-transform: scale3D(0, 0, 1);
+          transform: scale3D(0, 0, 1);
+}
+}
+  .clearfix:after {
+   visibility: hidden;
+   display: block;
+   font-size: 0;
+   content: " ";
+   clear: both;
+   height: 0;
+   }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+  body{
+    font-family: 'Slabo', sans-serif;
+  }
+  .wrapper{
+    width: 80%;
+    margin:0 auto;
+  }
+
+  .screen{
+    position: relative;
+    display: flex;
+    height:100%;
+    flex-direction: column;
+    transition:all .5s ease-in-out;
+    bottom:0;
+  }
+
+  .screen > div {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  img{
+    width:100%;
+  }
+
+  .image-half img{
+    display: block;
+  }
+
+  .hero-half{
+    text-align: center;
+  }
+
+  .hero-half h1{
+    font-family: 'Josefin Sans', sans-serif;
+    padding: 25px 0;
+    margin:0;
+    font-size:3.5em;
+    color:#fff;
+  }
+
+  .hero-half input{
+    width:360px;
+    height:50px;
+  }
+
+  .hero-half .button{
+    margin-top:15px;
+  }
+
+  .block{
+    display: block;
+  }
+
+  .transition-scroll-up{
+    bottom:1050px;
+  }
+
+  .theme-blue{
+    background-color:#fff;
+    color:#777;
+  }
+
+  .ui.statistic>.value, .ui.statistics .statistic>.value{
+    color:#0A4C61;
+  }
+
+   .ui.statistic>.label, .ui.statistics .statistic>.label{
+     color:#777;
+   }
+
+  .clickable{
+    cursor:pointer;
+  }
+
+  .screen.theme-blue{
+    padding1E88E515px;
+  }
+
+  .candidate-info{
+    padding:30px 0;
+    color:#777;
+  }
+  .info-column{
+    border:1px solid #fff;
+    padding:30px 15px;
+    width:25%;
+    float:left;
+  }
+
+  .tweets-column{
+    width:72%;
+    float:left;
+    margin-left:3%;
+  }
+
+  .tweets-column .header{
+    color:#777;
+    margin-left:2%;
+    margin-bottom:25px;
+    margin-top:0;
+  }
+
+  .tweet{
+    max-width: 31%;
+    margin-left:2%;
+    float:left;
+
+  }
+
+  .ui.card{
+    min-height:150px;
+  }
+
+  .ui.card>.content>.description, .ui.cards>.card>.content>.description{
+    color:#777;
+  }
+  .tweet:nth-child(n+4){
+    margin-top:20px;
+  }
+
+  .tweets-column canvas{
+    display:inline-block !important;
+  }
+
+  .logo{
+    position:fixed;
+    right:16.4%;
+    top:20px;
+    z-index:2;
+  }
+
+  .logo img{
+    width:300px;
+  }
+
+  .overlay-container{
+    position: relative;
+    background: url('header.png') no-repeat center fixed;
+    background-size:cover;
+    padding-top:275px;
+  }
+  .overlay-overlay{
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    background-color:#1c5588;
+    opacity:.55;
+  }
+  .overlay-content{
+    position: relative;
+    z-index:3;
+  }
+
+  .tweetCloud{
+    width:300px;
+    display: block;
+    text-align: center;
+    margin:0 auto;
+  }
+
+  .loading{
+    opacity:0;
+    display:flex;
+    align-items: center;
+      justify-content: center;
+    background-color:#0A4C61;
+    position: fixed;
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    z-index:-1;
+    transition:all .8s ease-in-out;
+  }
+
+  .loading.show{
+    opacity:1;
+    z-index:5;
+  }
+
+  .loading .center{
+    margin:0 auto;
+  }

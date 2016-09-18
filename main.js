@@ -4,7 +4,7 @@ let win;
 
 function createWindow(){
 	win = new BrowserWindow({width: 420, height: 420});
-	win.loadURL(`file://${__dirname}/index.html`);
+	win.loadURL(`file://${__dirname}/newIndex.html`);
 
 	win.on('closed', () =>{
 		win = null;
